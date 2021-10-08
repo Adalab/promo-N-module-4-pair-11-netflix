@@ -1,4 +1,4 @@
-itimport React from 'react';
+import React from 'react';
 import MoviesList from './MoviesList';
 import '../stylesheets/AppMovies.scss';
 
