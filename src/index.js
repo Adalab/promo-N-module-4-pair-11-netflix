@@ -13,10 +13,10 @@ server.listen(serverPort, () => {
 });
 
 // API
-server.get("/movies", (req, res) => {
+/*server.get("/movies", (req, res) => {
   console.log("Peticion a la ruta /");
   res.send("<html><body><ul>Lista de Peliculas</ul></body></html>")
-})
+})*/
 server.get("/movies", (req, res) => {
   console.log("Peticion a la ruta GET /movies");
   console.log(req.query);
@@ -38,9 +38,10 @@ server.get("/movies", (req, res) => {
         }
       ]
   }
-  
-  const filterdata = response.movies.filter((movies) => movies.title === req.query.title);
-  res.json(filterdata);
+  // req.query.filter  ,  req.query.sort
+  //const filterdata = response.movies.filter((movies) => movies.title === req.query.title);
+  //res.json(filterdata);
+  res.json(response);
 })
 
 //server.post("/movies", (req, res) => {

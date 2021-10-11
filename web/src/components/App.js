@@ -35,7 +35,7 @@ const App = () => {
   */
   useEffect(() => {
     const params = {
-      gender: allMoviesOptionGender,
+      genre: allMoviesOptionGender,
       sort: allMoviesOptionSort
     };
     apiMovies.getMoviesFromApi(params).then(response => {
