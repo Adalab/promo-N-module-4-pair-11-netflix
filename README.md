@@ -25,28 +25,28 @@ Por favor marca a continuación los ejericios que hayais terminado:
 4.1 Node JS:
 
 - [x] 1. Crea el proyecto
-- [ ] 2. Arranca el backend
-- [ ] 3. Arranca el front end
-- [ ] 4. Prueba el proyecto
-- [ ] 5. Entiende el código del proyecto
+- [x] 2. Arranca el backend
+- [x] 3. Arranca el front end
+- [x] 4. Prueba el proyecto
+- [x] 5. Entiende el código del proyecto
 
 4.2 Express JS I:
 
-- [ ] 1. Pedir todas las películas
-- [ ] 2. Filtrar por género
-- [ ] 3. Ordenar por nombre
+- [x] 1. Pedir todas las películas
+- [x] 2. Filtrar por género
+- [x] 3. Ordenar por nombre
 
 4.3 Express JS II:
 
-- [ ] 1. Servidor de estáticos para React
-- [ ] 2. Servidor de estáticos para las fotos
-- [ ] 3. Peticiones POST con body params
+- [x] 1. Servidor de estáticos para React
+- [x] 2. Servidor de estáticos para las fotos
+- [x] 3. Peticiones POST con body params
 - [ ] 4. Mantener logada a la usuaria
 
 4.4 Express JS III:
 
-- [ ] 1. Obtener el id de la película a renderizar
-- [ ] 2. Obtener la película
+- [x] 1. Obtener el id de la película a renderizar
+- [x] 2. Obtener la película
 - [ ] 3. Renderiza una página cualquiera
 - [ ] 4. Renderiza la película
 - [ ] 5. Añade estilos
