@@ -1,10 +1,22 @@
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors')
+const movies = require('./data/movies.json')
 
 // create and config server
 const server = express();
 server.use(cors());
 server.use(express.json());
+
+server.get('/movies/:moviesId', (req, res) => {
+  const moviesId= [
+  ]; 
+  console.log ('mostrar películas por Id', req.params.moviesId);
+  const foundMovie = movies.find(movie => 
+    movie.id === req.params.moviesId
+            
+  )
+  console.log(foundMovie);
+})
 
 // init express aplication
 const serverPort = 4000;
@@ -33,8 +45,6 @@ server.post("/user/add", (req, res) => {
 })
 // API
 server.get("/movies", (req, res) => {
-  console.log("Peticion a la ruta GET /movies");
-  console.log(req.query);
 
   const response = {
     success: true,
@@ -43,13 +53,13 @@ server.get("/movies", (req, res) => {
         id: '1',
         title: 'Gambita de dama',
         gender: 'Drama',
-        image: 'https://via.placeholder.com/150'
+        image: staticServerPathImagesGambito
       },
       {
         id: '2',
         title: 'Friends',
         gender: 'Comedia',
-        image: 'https://via.placeholder.com/150'
+        image: staticServerPathImagesFriends
       }
     ]
   }
@@ -58,9 +68,5 @@ server.get("/movies", (req, res) => {
   //res.json(filterdata);
   res.json(response);
 })
-
-//server.post("/movies", (req, res) => {
-  //res.json({ error: "No esta permitido" })
-//})
 
 

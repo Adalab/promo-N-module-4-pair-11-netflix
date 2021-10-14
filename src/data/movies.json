@@ -1,0 +1,15 @@
+
+ [
+      {
+        "id": "1",
+        "title": "Gambita de dama",
+        "gender": "Drama",
+        "image": "staticServerPathImagesGambito"
+      },
+      {
+        "id": "2",
+        "title": "Friends",
+        "gender": "Comedia",
+        "image": "staticServerPathImagesFriends"
+      }
+    ]
