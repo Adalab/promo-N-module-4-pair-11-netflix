@@ -22,20 +22,51 @@ const sendLoginToApi = data => {
 };
 
 // signup
-
 const sendSingUpToApi = data => {
   console.log('Se están enviando datos al signup:', data);
   // CAMBIA ESTE FETCH PARA QUE APUNTE A UN ENDPOINT DE TU SERVIDOR, PIENSA SI DEBE SER GET O POST, PIENSA QUÉ DATOS DEBES ENVIAR, ETC
   return fetch('//beta.adalab.es/curso-intensivo-fullstack-recursos/apis/netflix-v1/empty.json')
     .then(response => response.json())
-    .then(() => {
+    .then(data => {
       // CAMBIA EL CONTENIDO DE ESTE THEN PARA GESTIONAR LA RESPUESTA DEL SERVIDOR Y RETORNAR AL COMPONENTE APP LO QUE NECESITA
-      return {
-        success: false,
-        errorMessage: 'Usuario ya existente'
-      };
+      return data;
+        
+        //success: false,
+        //errorMessage: 'Usuario ya existente'
+      //};
     });
 };
+//Lo he copiado del ejercicio de Yanelis
+app.post("/user/signUp", (req, res)=>{
+  const email = req.body.email; 
+  const pass = req.body.password; 
+
+  if(email === "" || email === undefined || pass ==="" || pass== undefined){
+    res.json({
+      error: true, 
+      message: "debe enviar todos los datos"
+    }); 
+    
+    //usuario existe 
+  const querySelectUser= db.prepare("SELECT * FROM users WHERE email = ?"); 
+  const userFound = querySelectUser.get(email); 
+
+  //condicional 
+  if(userFound === undefined){
+    const query = db.prepare("INSERT  into users(email, pass) values (?,?);"); 
+    const userInsert = query.run(email, pass); 
+    res.json({
+      error: false,
+      userId: userInsert.lastInsertRowid
+    }); 
+  } else{
+    res.json({
+      error: true, 
+      message: "usuario ya existe"
+    }); 
+  }
+}
+}); 
 
 // profile
 

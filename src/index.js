@@ -64,8 +64,8 @@ server.get("/movies", (req, res) => {
         gender: 'Comedia',
         image: staticServerPathImagesFriends
       }
-  }
-})
+    ]
+}})
 
 // API
 server.get("/movies", (req, res) => {
