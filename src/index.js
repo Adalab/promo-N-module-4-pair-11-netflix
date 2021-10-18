@@ -13,6 +13,7 @@ const server = express();
 //configurar el servidor
 server.use(cors());
 server.use(express.json());
+server.set("view engine", "ejs");
 
 //arrancar el servidor
 const serverPort = 4000;
@@ -57,15 +58,19 @@ server.get("/movies", (req, res) => {
   console.log(responseBD);
   res.json(responseBD);
 })
-
+//Api Endpoints
+//endpoint url params
 server.get('/movies/:moviesId', (req, res) => {
   const moviesId = [
   ];
   console.log('mostrar películas por Id', req.params.moviesId);
   const foundMovie = movies.find(movie =>
-    movie.id === req.params.moviesId
+    movie.id === req.params.moviesId);
 
-  )
+    //pasarsela a la plantilla
+    res.render("movies", foundMovie);
+
+
   console.log(foundMovie);
 })
 
