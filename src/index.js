@@ -1,58 +1,59 @@
 const express = require('express');
 const cors = require('cors');
+//importar base de datos
 const Database = require("better-sqlite3");
+//configurar bd
 const db = new Database('./src/db/database.db', {
   verbose: console.log
 })
 
-
-//CREAR EL SERVIDOR
+//crear el servidor
 const server = express();
 
-//CONFIGURAR EL SERVIDOR
+//configurar el servidor
 server.use(cors());
 server.use(express.json());
 
-//ARRANCAR EL SERVIDOR
+//arrancar el servidor
 const serverPort = 4000;
 server.listen(serverPort, () => {
   console.log(`Server listening at http://localhost:${serverPort}`);
 });
 
-//CONFIGURAR SERVIDOR DE ESTÁTICOS
+//configurar servidor de estáticos
 const staticServerPath = "./src/public-react"; server.use(express.static(staticServerPath));
 
 ///API ENDPOINTS///
-//GET - PELÍCULAS
-server.get("/movies", (req, res) => {
 
-  const response = {
-    success: true,
-    movies: [
-      {
-        id: '1',
-        title: 'Gambita de dama',
-        gender: 'Drama',
-        image: friendsImage
-      },
-      {
-        id: '2',
-        title: 'Friends',
-        gender: 'Comedia',
-        image: GambitoImage
-      }
-    ]
+//get /login ? email & pass
+server.post("/login", (req, res) => {
+  const email = req.body.email;
+  const pass = req.body.pass;
+
+  if (!email || !pass) {
+    res.sendStatus(404)
+  } else {
+    //1-declarar mi query
+    const query = db.prepare("SELECT * FROM users WHERE email=? and pass=?");
+    //2-ejecutar la query
+    const foundUser = query.get(email, pass);
+
+    if (foundUser !== undefined) {
+      res.json({ userId: foundUser.id });
+    } else {
+      res.json({ error: "Usuario no encontrado " });
+    }
   }
 })
 
-
+//películas de netflix
 server.get("/movies", (req, res) => {
-  //console.log("Peticion a la ruta GET /movies");
-  //console.log(req.query);
-  //1-Declarar mi query
+  //fake data - base de datos
+  //1-declarar mi query
   const query = db.prepare("SELECT * FROM movies");
-  //2-Ejecutar mi query
+  //2-ejecutar mi query
   const responseBD = query.all();
+  
   console.log(responseBD);
   res.json(responseBD);
 })
@@ -68,14 +69,14 @@ server.get('/movies/:moviesId', (req, res) => {
   console.log(foundMovie);
 })
 
-//USE - IMÁGENES
+//use - imágenes
 const friendsImage = "./src/public-react/movies-images/friends.jpg"; server.use(express.static(friendsImage));
 //buscar en ruta: http://localhost:4000/movies-images/friends.jpg
 
-//USE - IMÁGENES
+//use - imágenes
 const GambitoImage = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(GambitoImage));
 
-//POST - CREAR USUARIO - BODY PARAMS
+//post - crear usuario - body params
 server.post("/user/add", (req, res) => {
   console.log(req.body);
   users.push({ name: req.body.name });
