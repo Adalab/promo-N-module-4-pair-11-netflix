@@ -15,11 +15,11 @@ server.listen(serverPort, () => {
 //create static server
 const staticServerPath = "./src/public-react"; server.use(express.static(staticServerPath));
 
-
+//create images server
 const staticServerPathImagesFriends = "./src/public-react/movies-images/friends.jpg"; server.use(express.static(staticServerPathImagesFriends));
-
 //buscar en ruta: http://localhost:4000/movies-images/friends.jpg
 
+//create images server
 const staticServerPathImagesGambito = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(staticServerPathImagesGambito));
 
 //body params
@@ -43,13 +43,13 @@ server.get("/movies", (req, res) => {
         id: '1',
         title: 'Gambita de dama',
         gender: 'Drama',
-        image: 'https://via.placeholder.com/150'
+        image: staticServerPathImagesFriends
       },
       {
         id: '2',
         title: 'Friends',
         gender: 'Comedia',
-        image: 'https://via.placeholder.com/150'
+        image: staticServerPathImagesGambito
       }
     ]
   }
