@@ -25,40 +25,40 @@ Por favor marca a continuación los ejericios que hayais terminado:
 4.1 Node JS:
 
 - [x] 1. Crea el proyecto
-- [ ] 2. Arranca el backend
-- [ ] 3. Arranca el front end
-- [ ] 4. Prueba el proyecto
-- [ ] 5. Entiende el código del proyecto
+- [x] 2. Arranca el backend
+- [x] 3. Arranca el front end
+- [x] 4. Prueba el proyecto
+- [x] 5. Entiende el código del proyecto
 
 4.2 Express JS I:
 
-- [ ] 1. Pedir todas las películas
-- [ ] 2. Filtrar por género
-- [ ] 3. Ordenar por nombre
+- [x] 1. Pedir todas las películas
+- [x] 2. Filtrar por género
+- [x] 3. Ordenar por nombre
 
 4.3 Express JS II:
 
-- [ ] 1. Servidor de estáticos para React
-- [ ] 2. Servidor de estáticos para las fotos
-- [ ] 3. Peticiones POST con body params
+- [x] 1. Servidor de estáticos para React
+- [x] 2. Servidor de estáticos para las fotos
+- [x] 3. Peticiones POST con body params
 - [ ] 4. Mantener logada a la usuaria
 
 4.4 Express JS III:
 
-- [ ] 1. Obtener el id de la película a renderizar
-- [ ] 2. Obtener la película
+- [x] 1. Obtener el id de la película a renderizar
+- [x] 2. Obtener la película
 - [ ] 3. Renderiza una página cualquiera
 - [ ] 4. Renderiza la película
 - [ ] 5. Añade estilos
 
 4.5 Bases de datos I:
 
-- [ ] 1. Crear la base de datos
-- [ ] 2. Configura la base de datos en Node JS
-- [ ] 3. Haz un SELECT para obtener todas películas
+- [x] 1. Crear la base de datos
+- [x] 2. Configura la base de datos en Node JS
+- [x] 3. Haz un SELECT para obtener todas películas
 - [ ] 4. Mejora tu SELECT
 - [ ] 5. SELECT para el motor de plantillas
-- [ ] 6. Crear la tabla de usuarias
+- [x] 6. Crear la tabla de usuarias
 
 4.6 Bases de datos I:
 

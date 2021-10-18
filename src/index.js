@@ -1,10 +1,25 @@
 const express = require('express');
 const cors = require('cors');
+const Database = require("better-sqlite3");
+const db = new Database('./src/db/database.db', {
+  verbose: console.log
+})
 
 // create and config server
 const server = express();
 server.use(cors());
 server.use(express.json());
+
+server.get('/movies/:moviesId', (req, res) => {
+  const moviesId = [
+  ];
+  console.log('mostrar películas por Id', req.params.moviesId);
+  const foundMovie = movies.find(movie =>
+    movie.id === req.params.moviesId
+
+  )
+  console.log(foundMovie);
+})
 
 // init express aplication
 const serverPort = 4000;
@@ -33,8 +48,6 @@ server.post("/user/add", (req, res) => {
 })
 // API
 server.get("/movies", (req, res) => {
-  console.log("Peticion a la ruta GET /movies");
-  console.log(req.query);
 
   const response = {
     success: true,
@@ -53,14 +66,39 @@ server.get("/movies", (req, res) => {
       }
     ]
   }
+})
+
+// API
+server.get("/movies", (req, res) => {
+  //console.log("Peticion a la ruta GET /movies");
+  //console.log(req.query);
+  //1-Declarar mi query
+  const query = db.prepare("SELECT * FROM movies");
+  //2-Ejecutar mi query
+  const responseBD = query.all();
+  console.log(responseBD);
+
+  //const response = {
+  //success: true,
+  //movies: [
+  //{
+  //id: '1',
+  //title: 'Gambita de dama',
+  //gender: 'Drama',
+  //image: 'https://via.placeholder.com/150'
+  //},
+  //{
+  //id: '2',
+  //title: 'Friends',
+  //gender: 'Comedia',
+  //image: 'https://via.placeholder.com/150'
+  //}
+  //]
+  //}
   // req.query.filter  ,  req.query.sort
   //const filterdata = response.movies.filter((movies) => movies.title === req.query.title);
   //res.json(filterdata);
-  res.json(response);
+  res.json(responseBD);
 })
-
-//server.post("/movies", (req, res) => {
-  //res.json({ error: "No esta permitido" })
-//})
 
 
