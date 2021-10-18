@@ -17,7 +17,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "rename-docs": "rm -rf docs && mv build docs",
+    "push-github-pages": "git add docs/ && git commit -m \"Build production version\" && git push",
+    "docs-and-push": "npm run build && npm run rename-docs && npm run push-github-pages"
   },
   "eslintConfig": {
     "extends": [

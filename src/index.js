@@ -5,10 +5,57 @@ const db = new Database('./src/db/database.db', {
   verbose: console.log
 })
 
-// create and config server
+
+//CREAR EL SERVIDOR
 const server = express();
+
+//CONFIGURAR EL SERVIDOR
 server.use(cors());
 server.use(express.json());
+
+//ARRANCAR EL SERVIDOR
+const serverPort = 4000;
+server.listen(serverPort, () => {
+  console.log(`Server listening at http://localhost:${serverPort}`);
+});
+
+//CONFIGURAR SERVIDOR DE ESTÁTICOS
+const staticServerPath = "./src/public-react"; server.use(express.static(staticServerPath));
+
+///API ENDPOINTS///
+//GET - PELÍCULAS
+server.get("/movies", (req, res) => {
+
+  const response = {
+    success: true,
+    movies: [
+      {
+        id: '1',
+        title: 'Gambita de dama',
+        gender: 'Drama',
+        image: friendsImage
+      },
+      {
+        id: '2',
+        title: 'Friends',
+        gender: 'Comedia',
+        image: GambitoImage
+      }
+    ]
+  }
+})
+
+
+server.get("/movies", (req, res) => {
+  //console.log("Peticion a la ruta GET /movies");
+  //console.log(req.query);
+  //1-Declarar mi query
+  const query = db.prepare("SELECT * FROM movies");
+  //2-Ejecutar mi query
+  const responseBD = query.all();
+  console.log(responseBD);
+  res.json(responseBD);
+})
 
 server.get('/movies/:moviesId', (req, res) => {
   const moviesId = [
@@ -21,23 +68,14 @@ server.get('/movies/:moviesId', (req, res) => {
   console.log(foundMovie);
 })
 
-// init express aplication
-const serverPort = 4000;
-server.listen(serverPort, () => {
-  console.log(`Server listening at http://localhost:${serverPort}`);
-});
-
-//create static server
-const staticServerPath = "./src/public-react"; server.use(express.static(staticServerPath));
-
-//create images server
-const staticServerPathImagesFriends = "./src/public-react/movies-images/friends.jpg"; server.use(express.static(staticServerPathImagesFriends));
+//USE - IMÁGENES
+const friendsImage = "./src/public-react/movies-images/friends.jpg"; server.use(express.static(friendsImage));
 //buscar en ruta: http://localhost:4000/movies-images/friends.jpg
 
-//create images server
-const staticServerPathImagesGambito = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(staticServerPathImagesGambito));
+//USE - IMÁGENES
+const GambitoImage = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(GambitoImage));
 
-//body params
+//POST - CREAR USUARIO - BODY PARAMS
 server.post("/user/add", (req, res) => {
   console.log(req.body);
   users.push({ name: req.body.name });
@@ -47,58 +85,6 @@ server.post("/user/add", (req, res) => {
   });
 })
 // API
-server.get("/movies", (req, res) => {
 
-  const response = {
-    success: true,
-    movies: [
-      {
-        id: '1',
-        title: 'Gambita de dama',
-        gender: 'Drama',
-        image: staticServerPathImagesFriends
-      },
-      {
-        id: '2',
-        title: 'Friends',
-        gender: 'Comedia',
-        image: staticServerPathImagesGambito
-      }
-    ]
-  }
-})
-
-// API
-server.get("/movies", (req, res) => {
-  //console.log("Peticion a la ruta GET /movies");
-  //console.log(req.query);
-  //1-Declarar mi query
-  const query = db.prepare("SELECT * FROM movies");
-  //2-Ejecutar mi query
-  const responseBD = query.all();
-  console.log(responseBD);
-
-  //const response = {
-  //success: true,
-  //movies: [
-  //{
-  //id: '1',
-  //title: 'Gambita de dama',
-  //gender: 'Drama',
-  //image: 'https://via.placeholder.com/150'
-  //},
-  //{
-  //id: '2',
-  //title: 'Friends',
-  //gender: 'Comedia',
-  //image: 'https://via.placeholder.com/150'
-  //}
-  //]
-  //}
-  // req.query.filter  ,  req.query.sort
-  //const filterdata = response.movies.filter((movies) => movies.title === req.query.title);
-  //res.json(filterdata);
-  res.json(responseBD);
-})
 
 
