@@ -115,6 +115,20 @@ server.post("/user/signUp", (req, res) => {
   }
 });
 
-
+//endpoint update
+app.patch("/user/update", (req, res)=>{
+  const query= db.prepare("UPDATE users SET email=?, name=?, pass=? where id=?");
+  const userUpdate = query.run(req.body.email, req.body.name, req.body.pass, req.body.id);
+  if(userUpdate.changes !==0){
+    res.json(
+      {
+        error: false,
+        msj: "Se ha modificado con éxito"
+      }
+    )
+  }else{
+    res.json({error: true, msj: "Ha ocurrido un error"})
+  }
+}); 
 
 
