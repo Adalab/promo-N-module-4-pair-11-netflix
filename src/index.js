@@ -33,16 +33,15 @@ server.get('/movies', (req, res) => {
   );
 });
 
+//CONFIGURAR MOTOR DE PLANTILLAS
+server.set("view engine", "ejs");
+
 //SELECCIONA ID - MOTOR DE PLANTILLAS
 server.get('/movies/:moviesId', (req, res) => {
-  const moviesId = [
-  ];
   console.log('mostrar películas por Id', req.params.moviesId);
-  const foundMovie = movies.find(movie =>
-    movie.id === req.params.moviesId
-
-  )
-  console.log(foundMovie);
+  const query = db.prepare(`SELECT * FROM movies WHERE id = ?`);
+  const result = query.get(req.params.moviesId);
+  res.render('posts', result);
 })
 
 //SERVIDORES ESTÁTICOS DE IMAGENES (YA NO NECESITAMOS)
