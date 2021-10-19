@@ -1,10 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const Database = require("better-sqlite3");
-const db = new Database('./src/db/database.db', {
-  verbose: console.log
-})
-
 
 //CREAR EL SERVIDOR
 const server = express();
@@ -22,41 +18,22 @@ server.listen(serverPort, () => {
 //CONFIGURAR SERVIDOR DE ESTÁTICOS
 const staticServerPath = "./src/public-react"; server.use(express.static(staticServerPath));
 
-///API ENDPOINTS///
-//GET - PELÍCULAS
-server.get("/movies", (req, res) => {
-
-  const response = {
-    success: true,
-    movies: [
-      {
-        id: '1',
-        title: 'Gambita de dama',
-        gender: 'Drama',
-        image: friendsImage
-      },
-      {
-        id: '2',
-        title: 'Friends',
-        gender: 'Comedia',
-        image: GambitoImage
-      }
-    ]
-  }
+//CONFIGURAR BASE DE DATOS
+const db = new Database('./src/db/database.db', {
+  verbose: console.log
 })
 
-
-server.get("/movies", (req, res) => {
-  //console.log("Peticion a la ruta GET /movies");
-  //console.log(req.query);
-  //1-Declarar mi query
-  const query = db.prepare("SELECT * FROM movies");
-  //2-Ejecutar mi query
+//TOMA PELICULAS DE BASE DE DATOS
+server.get('/movies', (req, res) => {
+  //SELECCIONAR QUERY
+  const query = db.prepare(`SELECT * FROM movies`);
+  //EJECUTAR QUERY
   const responseBD = query.all();
-  console.log(responseBD);
-  res.json(responseBD);
-})
+  res.json({ movies: responseBD }
+  );
+});
 
+//SELECCIONA ID?
 server.get('/movies/:moviesId', (req, res) => {
   const moviesId = [
   ];
@@ -68,6 +45,7 @@ server.get('/movies/:moviesId', (req, res) => {
   console.log(foundMovie);
 })
 
+//SERVIDORES ESTÁTICOS DE IMAGENES (YA NO NECESITAMOS)
 //USE - IMÁGENES
 const friendsImage = "./src/public-react/movies-images/friends.jpg"; server.use(express.static(friendsImage));
 //buscar en ruta: http://localhost:4000/movies-images/friends.jpg
@@ -84,7 +62,60 @@ server.post("/user/add", (req, res) => {
     result: "user created"
   });
 })
-// API
+
+// GET /login ? email & passwd
+server.post("/login", (req, res) => {
+  // 1. Recogemos y comprobamos los param.
+  // select --> columnas, from--->  de que tabla las saco, where --> condicion
+  // order by --> metodo ordenamiento, limit--> limite de filaso registros
+  //seleccionamos los datos de la BD
+  const query = db.prepare(`SELECT * FROM users WHERE email= ? AND pass = ?`);
+  const foundUser = query.get(req.body.email, req.body.password);
+  console.log(foundUser);
+
+  if (foundUser === undefined) {
+    //si la usuario no existe devuelvo un error
+    res.json({ error: "No encontrado" });
+  }
+  else {
+    //si la usuario existe  devuelvo 
+    res.json({ userId: foundUser.id });
+  }
+});
+
+//Api endpoint register
+server.post("/user/signUp", (req, res) => {
+  const email = req.body.email;
+  const pass = req.body.password;
+
+  if (email === "" || email === undefined || pass === "" || pass == undefined) {
+    res.json({
+      error: true,
+      message: "debe enviar todos los datos"
+    });
+  } else {
+
+    //usuario existe 
+    const querySelectUser = db.prepare("SELECT * FROM users WHERE email = ?");
+    const userFound = querySelectUser.get(email);
+
+    //condicional 
+    if (userFound === undefined) {
+      const query = db.prepare("INSERT  into users(email, pass) values (?,?);");
+      const userInsert = query.run(email, pass);
+      res.json({
+        error: false,
+        userId: userInsert.lastInsertRowid
+      });
+    } else {
+      res.json({
+        error: true,
+        message: "usuario ya existente"
+      });
+    }
+  }
+});
+
 
 
 

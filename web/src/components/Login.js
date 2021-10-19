@@ -5,7 +5,6 @@ const Login = props => {
   const [password, setPassword] = useState('');
 
   // events
-
   const handleEmail = ev => {
     setEmail(ev.target.value);
   };
