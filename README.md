@@ -66,13 +66,13 @@ Por favor marca a continuación los ejericios que hayais terminado:
 - [x] 2. Registro de nuevas usuarias en el back
 - [x] 3. Comprueba que no haya una usuaria registrada con el mismo email
 - [ ] 4. Actualiza el perfil de la usuaria en el front
-- [ ] 5. Cctualiza el perfil de la usuaria en el back
+- [X] 5. Actualiza el perfil de la usuaria en el back
 - [ ] 6. Recupera los datos del perfil de la usuaria desde el front
 - [ ] 7. Recupera los datos del perfil de la usuaria desde el back
 
 4.7 Bases de datos I:
 
-- [ ] 1. Pensar qué relación es
+- [x] 1. Pensar qué relación es
 - [ ] 2. Crear una relación N a N
 - [ ] 3. Crear el endpoint en el front
 - [ ] 4. Crear el endpoint en el back

@@ -83,6 +83,7 @@ server.post("/login", (req, res) => {
 });
 
 //Api endpoint register
+//Lo probé en BD y funciona pero en Postman no
 server.post("/user/signUp", (req, res) => {
   const email = req.body.email;
   const pass = req.body.password;
@@ -95,13 +96,15 @@ server.post("/user/signUp", (req, res) => {
   } else {
 
     //usuario existe 
+    //funciona perfectamente en BD
     const querySelectUser = db.prepare("SELECT * FROM users WHERE email = ?");
     const userFound = querySelectUser.get(email);
 
     //condicional 
+    //funciona perfectamente en BD
     if (userFound === undefined) {
-      const query = db.prepare("INSERT  into users(email, pass) values (?,?);");
-      const userInsert = query.run(email, pass);
+      const query = db.prepare("INSERT INTO users(email, pass, nombre) values (?,?,?);");
+      const userInsert = query.run(email, pass, nombre);
       res.json({
         error: false,
         id: userInsert.lastInsertRowid
@@ -116,9 +119,10 @@ server.post("/user/signUp", (req, res) => {
 });
 
 //endpoint update
+//Lo probé en BD y funciona pero en Postman no
 app.patch("/user/update", (req, res)=>{
-  const query= db.prepare("UPDATE users SET email=?, name=?, pass=? where id=?");
-  const userUpdate = query.run(req.body.email, req.body.name, req.body.pass, req.body.id);
+  const query= db.prepare("UPDATE users SET email=?, nombre=?, pass=? where id=?");
+  const userUpdate = query.run(req.body.email, req.body.nombre, req.body.pass, req.body.id);
   if(userUpdate.changes !==0){
     res.json(
       {
@@ -130,5 +134,26 @@ app.patch("/user/update", (req, res)=>{
     res.json({error: true, msj: "Ha ocurrido un error"})
   }
 }); 
+
+//endpoint delete user
+app.delete("/user/delete", (req, res)=>{
+  //verificar que el usuario existe
+  const queryUserExist= db.prepare("SELECT * FROM users where id=?"); 
+  const userFound =  queryUserExist.get(req.body.id); 
+
+  if(userFound === undefined ){
+    res.json({
+      error: true, message: "usuario no existe"
+    })
+  }else{
+    const queryDeleteUser = db.prepare("DELETE from users where id = ?");
+    const resultDelete = queryDeleteUser.run(req.body.id); 
+    if(resultDelete.changes !==0){
+      res.json({error: false, message: "usuario eliminado"}); 
+    }else{
+      res.json({error: true, message: "no fue posible eliminar el usuario "}); 
+    }
+  }
+})
 
 
