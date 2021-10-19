@@ -33,7 +33,7 @@ server.get('/movies', (req, res) => {
   );
 });
 
-//SELECCIONA ID?
+//SELECCIONA ID - MOTOR DE PLANTILLAS
 server.get('/movies/:moviesId', (req, res) => {
   const moviesId = [
   ];
@@ -79,7 +79,7 @@ server.post("/login", (req, res) => {
   }
   else {
     //si la usuario existe  devuelvo 
-    res.json({ userId: foundUser.id });
+    res.json({ id: foundUser.id });
   }
 });
 
@@ -105,7 +105,7 @@ server.post("/user/signUp", (req, res) => {
       const userInsert = query.run(email, pass);
       res.json({
         error: false,
-        userId: userInsert.lastInsertRowid
+        id: userInsert.lastInsertRowid
       });
     } else {
       res.json({
