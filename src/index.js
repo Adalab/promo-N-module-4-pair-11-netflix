@@ -120,7 +120,7 @@ server.post("/user/signUp", (req, res) => {
 
 //endpoint update
 //Lo probé en BD y funciona pero en Postman no
-app.patch("/user/update", (req, res)=>{
+server.patch("/user/update", (req, res)=>{
   const query= db.prepare("UPDATE users SET email=?, nombre=?, pass=? where id=?");
   const userUpdate = query.run(req.body.email, req.body.nombre, req.body.pass, req.body.id);
   if(userUpdate.changes !==0){
@@ -136,7 +136,7 @@ app.patch("/user/update", (req, res)=>{
 }); 
 
 //endpoint delete user
-app.delete("/user/delete", (req, res)=>{
+server.delete("/user/delete", (req, res)=>{
   //verificar que el usuario existe
   const queryUserExist= db.prepare("SELECT * FROM users where id=?"); 
   const userFound =  queryUserExist.get(req.body.id); 
