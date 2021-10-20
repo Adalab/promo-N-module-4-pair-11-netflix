@@ -46,11 +46,11 @@ server.get('/movies/:moviesId', (req, res) => {
 
 //SERVIDORES ESTÁTICOS DE IMAGENES (YA NO NECESITAMOS)
 //USE - IMÁGENES
-const friendsImage = "./src/public-react/movies-images/friends.jpg"; server.use(express.static(friendsImage));
+const friendsImage = "./src/public-images/"; server.use(express.static(friendsImage));
 //buscar en ruta: http://localhost:4000/movies-images/friends.jpg
 
 //USE - IMÁGENES
-const GambitoImage = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(GambitoImage));
+// const GambitoImage = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(GambitoImage));
 
 //POST - CREAR USUARIO - BODY PARAMS
 //server.post("/user/add", (req, res) => {
