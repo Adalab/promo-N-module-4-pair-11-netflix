@@ -53,14 +53,14 @@ const friendsImage = "./src/public-react/movies-images/friends.jpg"; server.use(
 const GambitoImage = "./src/public-react/movies-images/gambito-de-dama.jpg"; server.use(express.static(GambitoImage));
 
 //POST - CREAR USUARIO - BODY PARAMS
-server.post("/user/add", (req, res) => {
-  console.log(req.body);
-  users.push({ name: req.body.name });
+//server.post("/user/add", (req, res) => {
+  //console.log(req.body);
+  //users.push({ name: req.body.name });
   //res.sendStatus(200); 
-  res.json({
-    result: "user created"
-  });
-})
+  //res.json({
+    //result: "user created"
+  //});
+//})
 
 // GET /login ? email & passwd
 server.post("/login", (req, res) => {
